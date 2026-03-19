@@ -7,7 +7,7 @@ export default function Dashboard({ token, onLogout }) {
 
   useEffect(() => {
     fetchTodos();
-  }, []);
+  }, [token]);
 
   const fetchTodos = async () => {
     const res = await fetch('/todos', {
@@ -42,6 +42,7 @@ export default function Dashboard({ token, onLogout }) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}` 
       },
+      body: JSON.stringify(updates)
     });
     if (res.ok) fetchTodos();
   };
