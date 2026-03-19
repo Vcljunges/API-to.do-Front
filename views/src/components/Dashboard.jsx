@@ -35,14 +35,13 @@ export default function Dashboard({ token, onLogout }) {
     }
   };
 
-  const toggleTodo = async (todo) => {
-    const res = await fetch(`/todos/${todo.id}`, {
+  const updateTodo = async (id, updates) => {
+    const res = await fetch(`/todos/${id}`, {
       method: 'PUT',
       headers: { 
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}` 
       },
-      body: JSON.stringify({ finished: !todo.finished })
     });
     if (res.ok) fetchTodos();
   };
@@ -83,7 +82,7 @@ export default function Dashboard({ token, onLogout }) {
                 <TodoItem 
                   key={todo.id} 
                   todo={todo} 
-                  onToggle={() => toggleTodo(todo)} 
+                  onUpdate={(updates) => updateTodo(todo.id, updates)} 
                   onDelete={() => deleteTodo(todo.id)} 
                 />
               ))
